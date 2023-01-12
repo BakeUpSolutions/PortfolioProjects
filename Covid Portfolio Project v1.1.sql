@@ -3,7 +3,7 @@
 SELECT * FROM CovidDeath$ ORDER BY location, year_reg DESC;
 SELECT * FROM CovidVaccination$;
 
--- Add an year column to CovidDeath$ Table
+-- Add an year(yyyy) column to CovidDeath$ Table
 ALTER TABLE CovidDeath$ add year_reg varchar(4); 
 UPDATE CovidDeath$ set year_reg = year(date);
 
@@ -17,8 +17,8 @@ AS (SELECT continent,
 		   location,
 		   date,
 		   ROW_NUMBER() OVER(PARTITION BY continent, 
-										  location,
-										  date
+						  location,
+						  date
 	       ORDER BY location, date) AS dupe_count
 	FROM CovidVaccination$)
 
